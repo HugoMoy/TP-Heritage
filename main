@@ -151,10 +151,12 @@ void lectureConsole(string line)
    else if (pop.compare(undo))
    {
         cout << "undo" << endl;
+        f.annuler();
    }
    else if (pop.compare(redo))
    {
         cout << "redo" << endl;
+        f.refaire();
    }
    else if(pop.compare(load))
    {
@@ -177,15 +179,29 @@ void lectureConsole(string line)
    }
    else if(pop.compare(suppr))
    {
+        cout << "Suppression"<< endl;
+
+        while(lines.second.compare(lines.first)!=0 && lines.second.compare(" ") !=0 )
+        {
+            f.supprimer(lines.second);
+            lines = getNewWord(lines.first);
+        }
+
 
    }
    else if(pop.compare(bouger))
    {
+        cout << "Déplacement"<< endl;
+        lines = getNewWord(lines.first);
+        string name = lines.second;
 
-   }
-   else if(pop.compare(hit))
-   {
-
+        int tab[2];
+        for(int i = 0 ; i < 2;i++)
+        {
+            lines = getNewWord(lines.first);
+            tab[i] = atoi(lines.second.c_str());
+        }
+        f.bouger(name, tab[0], tab[1]);
    }
    else if (pop.compare(save))
    {
