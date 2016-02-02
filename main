@@ -1,0 +1,248 @@
+#include <iostream>
+#include <stdlib.h>
+#include <vector>
+#include <fstream>
+#include "Fabrique.h"
+using namespace std;
+
+pair<string,string> getNewWord(string line);
+void lectureConsole(string consoleLine);
+Fabrique f ;
+
+int main()
+{
+
+string line = "";
+
+while(line.compare("EXIT") !=0)
+{
+
+    getline(std::cin, line);
+    lectureConsole(line);
+}
+
+return 0;
+}
+
+void lectureConsole(string line)
+{
+    ifstream monFichier;
+
+
+    pair <string,string> lines = getNewWord(line);
+    //il faut regarder le premier mot
+    string pop = lines.second;
+
+    string r = "R";
+    string pc = "PC";
+    string o = "OR";
+    string oi = "OI";
+    string s = "S";
+    string undo = "UNDO";
+    string redo = "REDO";
+    string save = "SAVE";
+    string load = "LOAD";
+    string nettoyer = "CLEAR";
+    string sortir = "EXIT";
+    string hit = "HIT";
+    string suppr = "DELETE";
+    string bouger = "MOVE";
+    string lister = "LIST";
+
+   if(pop.compare(r)==0)
+   {
+        cout << "rectangle is being created" << endl;
+
+        lines = getNewWord(lines.first);
+        string name = lines.second;
+
+        int tab[4];
+        for(int i = 0 ; i < 4;i++)
+        {
+            lines = getNewWord(lines.first);
+            tab[i] = atoi(lines.second.c_str());
+        }
+       if (tab[0] > tab[2] || tab[1] < tab[3] )
+       {
+           cout << "err : invalid parameters, not up-left and right-bottom coordinates";
+       }
+       else
+       {
+            f.creerR(name, tab[0], tab[1], tab[2], tab[3]);
+       }
+
+   }
+   else if(pop.compare(pc)==0) //PC envoyé prefi == pci
+   {
+        cout << "polygone complexe" << endl;
+
+        lines = getNewWord(lines.first);
+        string name = lines.second;
+        vector<int> v;
+        while(lines.second.compare(lines.first)!=0 && lines.second.compare(" ") !=0 )
+        {
+            lines = getNewWord(lines.first);
+            v.push_back(atoi(lines.second.c_str()));
+        }
+        int nbc = v.size();
+        int tab[nbc];
+        cout << "your name is " << name << endl;
+        if(v.size()%2 == 1)
+        {
+            cout << "err : missing parameters." << endl;
+        }
+        else
+        {
+            for(int i =0 ; i<nbc ; i++)
+            {
+                tab[i] = v.front();
+                v.erase(v.begin());
+
+            }
+
+            f.creerPC(name, nbc, tab);
+        }
+
+   }
+   else if (pop.compare(o))
+   {
+       cout << "Reunion"<< endl;
+       lines = getNewWord(lines.first);
+        string name = lines.second;
+
+        vector<string> v;
+        while(lines.second.compare(lines.first)!=0 && lines.second.compare(" ") !=0 )
+        {
+            lines = getNewWord(lines.first);
+            v.push_back(lines.second);
+        }
+        int nbc = v.size();
+        string tab[nbc];
+        cout << "your name is " << name << endl;
+            for(int i =0 ; i<nbc ; i++)
+            {
+                tab[i] = v.front();
+                v.erase(v.begin());
+                //cout << tab[i] << endl;
+            }
+            f.unir(name, nbc, tab);
+   }
+   else if(pop.compare(oi))
+   {
+        cout << "Intersection" << endl;
+
+   }
+   else if (pop.compare(s))
+   {
+        cout << "segment" << endl;
+
+        lines = getNewWord(lines.first);
+        string name = lines.second;
+
+        int tab[4];
+        for(int i = 0 ; i < 4;i++)
+        {
+            lines = getNewWord(lines.first);
+            tab[i] = atoi(lines.second.c_str());
+        }
+        f.creerS(name, tab[0], tab[1], tab[2], tab[3]);
+
+   }
+   else if (pop.compare(undo))
+   {
+        cout << "undo" << endl;
+   }
+   else if (pop.compare(redo))
+   {
+        cout << "redo" << endl;
+   }
+   else if(pop.compare(load))
+   {
+        //clear
+        f.nettoyer();
+
+        string lineOfFile;
+        lines = getNewWord(lines.first);
+        string namefile = lines.second;
+        monFichier.open(namefile.c_str());
+        if (monFichier.is_open())
+        {
+            while (getline(monFichier,lineOfFile))
+            {
+                lectureConsole(lineOfFile); //on effecture chaque action du fichier
+            }
+        }
+        monFichier.close();
+
+   }
+   else if(pop.compare(suppr))
+   {
+
+   }
+   else if(pop.compare(bouger))
+   {
+
+   }
+   else if(pop.compare(hit))
+   {
+
+   }
+   else if (pop.compare(save))
+   {
+        lines = getNewWord(lines.first);
+        string namefile = lines.second;
+        ofstream sauvegarde;
+        sauvegarde.open(namefile.c_str());
+        if (sauvegarde.is_open())
+        {
+            //for(int i = 0; i< actionsDone.size();i++)
+            //{
+                //sauvegarde.write(actionsDone.front(),actionsDone.front().size());
+                //actionsDone.erase(actionsDone.begin());
+            //}
+        }
+        sauvegarde.close();
+   }
+   else if(pop.compare(hit))
+   {
+        lines = getNewWord(lines.first);
+        string name = lines.second;
+
+        int tab[2];
+        for(int i = 0 ; i < 2;i++)
+        {
+            lines = getNewWord(lines.first);
+            tab[i] = atoi(lines.second.c_str());
+        }
+        if(f.appartenance(name, tab[0], tab[1]))
+        {
+            cout << "YES" << endl;
+        }
+        else
+        {
+            cout << "NO" << endl;
+        }
+
+   }
+   else if(pop.compare(lister))
+   {
+        f.lister();
+   }
+
+}
+
+pair<string,string> getNewWord(string line)
+{
+     pair <string,string> a ;          // copy constructor
+    string prefixe;
+    if(line.size()==0)
+    {
+        a = make_pair(" "," ");
+        return a;
+    }
+    int pos = line.find_first_of(" ");
+    prefixe = line.substr(0, pos);
+    line = line.substr(pos+1,line.length());
+    a = make_pair(line,prefixe);
+    return a;
+}
