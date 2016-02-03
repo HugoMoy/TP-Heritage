@@ -6,6 +6,8 @@
 
 using namespace std;
 
+
+
 class Forme
 {
 protected :
@@ -18,7 +20,7 @@ public:
 
     virtual bool contient(pair<int, int> point) =0;
     virtual void deplacer(int dx, int dy)=0;
-	virtual ptr_Forme clone() = 0;
+	virtual Forme * clone() = 0;
 
 	string getNom(){return nom;}
 };

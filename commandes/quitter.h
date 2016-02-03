@@ -1,10 +1,15 @@
 #ifndef QUITTER_H
 #define QUITTER_H
 
-class Quitter
+#include "commande.h"
+
+class Quitter : public Commande
 {
 public:
-    Quitter();
+    Quitter(FabriqueCommande * fCommande);
+
+	bool exec();
+	bool unexec();
 };
 
 #endif // QUITTER_H

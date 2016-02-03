@@ -2,6 +2,9 @@
 #define FABRIQUECOMMANDE_H
 
 #include <map>
+#include "../modele/forme.h"
+
+class Commande;
 
 class FabriqueCommande
 {
@@ -19,7 +22,10 @@ public:
 	bool ajouterForme(Forme * forme);
 	bool retirerForme(Forme * forme);
 	bool retirerForme(string nom);
+	void enumere();
+	const map<string, Forme*> getFormes(){return listeForme;}
 	Forme* find(string nom);
+	
 };
 
 #endif // FABRIQUECOMMANDE_H

@@ -1,10 +1,15 @@
 #ifndef ENUMERER_H
 #define ENUMERER_H
 
-class Enumerer
+#include "commande.h"
+
+class Enumerer : public Commande
 {
 public:
-    Enumerer();
+    Enumerer(FabriqueCommande * fCommande);
+
+	bool exec();
+	bool unexec();
 };
 
 #endif // ENUMERER_H
