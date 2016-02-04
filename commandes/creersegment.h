@@ -14,9 +14,11 @@ private:
 
 public:
     CreerSegment(string name, int mX1, int mY1, int mX2, int mY2,  FabriqueCommande * fCommande);
+	~CreerSegment();
 
 	bool exec();
 	bool unexec();
+	string saveLine();
 };
 
 #endif // CREERSEGMENT_H

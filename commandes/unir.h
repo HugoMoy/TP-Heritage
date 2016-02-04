@@ -5,7 +5,7 @@
 #include "../modele/union.h"
 #include <string>
 
-class Unir : Commande
+class Unir : public Commande
 {
 private:
 	string * formesNom;
@@ -19,9 +19,11 @@ public:
 	
 
     Unir(string name, string formesName[], int nbFormes, FabriqueCommande * fCommande);
+	~Unir();
 
 	bool exec();
 	bool unexec();
+	string saveLine();
 
 };
 

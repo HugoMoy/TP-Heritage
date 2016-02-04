@@ -18,10 +18,11 @@ public:
 	
 
     CreerRectangle(int mPoints[], string name, FabriqueCommande * fCommande);
-
+	~CreerRectangle();
 
 	bool exec();
 	bool unexec();
+	string saveLine();
 };
 
 #endif // CREERRECTANGLE_H

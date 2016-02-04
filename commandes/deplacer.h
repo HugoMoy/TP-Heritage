@@ -15,8 +15,10 @@ private:
 public:
     Deplacer(int x, int y, string nom, FabriqueCommande * fCommande);
 
+
 	bool exec();
 	bool unexec();
+	string saveLine();
 };
 
 #endif // DEPLACER_H

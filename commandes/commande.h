@@ -14,6 +14,7 @@ public:
 
 	virtual bool exec()=0;
 	virtual bool unexec()=0;
+	virtual string saveLine()=0;
 };
 
 #endif // COMMANDE_H

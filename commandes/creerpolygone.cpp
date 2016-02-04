@@ -12,11 +12,10 @@ CreerPolygone::CreerPolygone(int mPoints[], int mnbPoints, string name, Fabrique
 
 }
 
-/*CreerPolygone::CreerPolygone(Polygone polygone, FabriqueCommande * fCommande) : Commande(fCommande)
+CreerPolygone::~CreerPolygone()
 {
-	nbPoints = polygone.getNbPoints();
-	points = polygone.getListePoints();
-}*/
+	delete poly;
+}
 
 bool CreerPolygone::exec()
 {
@@ -32,4 +31,17 @@ bool CreerPolygone::exec()
 bool CreerPolygone::unexec()
 {
 	return commandeFactory->retirerForme(poly);
+}
+
+string CreerPolygone::saveLine()
+{
+	string chaine = "PC ";
+	chaine += nom;
+	for (int i = 0; i < nbPoints; i++)
+	{
+		chaine += " " + points[i].first;
+		chaine += " " + points[i].second;
+	}
+
+	return chaine;
 }

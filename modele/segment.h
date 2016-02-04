@@ -16,6 +16,7 @@ public:
     bool contient(pair<int, int> point);
     void deplacer(int dx, int dy);
 	ptr_Forme clone();
+	void display();
 
 };
 

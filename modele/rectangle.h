@@ -14,6 +14,7 @@ public:
 
     bool contient(pair<int, int> point);
 	ptr_Forme clone();
+	void display();
 };
 
 #endif // RECTANGLE_H

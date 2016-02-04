@@ -19,6 +19,7 @@ bool Polygone::ajouterPoint(int x, int y)
     {
    listePoints[sommet] = pair<int,int>(x,y);
    sommet++;
+   return true;
     }
 
 	else if(sommet < nbPoints)
@@ -28,8 +29,12 @@ bool Polygone::ajouterPoint(int x, int y)
 		{
 			listePoints[sommet] = nouveauSommet;
 			sommet++;
+			return true;
 		}
+		return false;
 	}
+
+	return false;
 }
 
 bool Polygone::contient(std::pair<int, int> point)
@@ -85,4 +90,12 @@ ptr_Forme Polygone::clone()
 		polygoneClone->ajouterPoint(listePoints[i].first, listePoints[i].second);
 
 	return polygoneClone;
+}
+
+void Polygone::display()
+{
+	cout << "POLYGONE : " << nom << "contenant " << nbPoints << " points : ";
+	for (int i = 0; i < nbPoints-1; i++)
+		cout << "(" << listePoints[i].first << ", " << listePoints[i].second << ") ; ";
+	cout << "(" << listePoints[nbPoints-1].first << ", " << listePoints[nbPoints-1].second << ")" << endl;
 }

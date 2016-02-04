@@ -2,14 +2,8 @@
 
 Intersection::Intersection(string name, ptr_Forme formes[], int nb) : Forme(name)
 {
-    formesAIntersecter = new ptr_Forme[nbFormes];
+    formesAIntersecter = formes;
     nbFormes = nb;
-
-    for(int i = 0; i<nb; i++)
-    {
-        formesAIntersecter[i]=formes[i];
-    }
-
 }
 
 Intersection::~Intersection()
@@ -45,4 +39,9 @@ ptr_Forme Intersection::clone()
 
 	Intersection * intersectionClone = new Intersection(nom, formes, nbFormes);
 	return intersectionClone;
+}
+
+void Intersection::display()
+{
+	cout << "INTERSECTION : " << nom << ", contient " << nbFormes << "forme(s)." << endl;
 }

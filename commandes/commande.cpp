@@ -1,5 +1,11 @@
 #include "commande.h"
 
-Commande::Commande()
+Commande::Commande(FabriqueCommande * fCommande)
 {
+	commandeFactory = fCommande;
+}
+
+Commande::~Commande()
+{
+
 }

@@ -23,3 +23,13 @@ bool Deplacer::unexec()
 	forme->deplacer(-dx,-dy);
 	return true;
 }
+
+string Deplacer::saveLine()
+{
+	string chaine = "MOVE ";
+	chaine += nomForme + " ";
+	chaine += dx + " ";
+	chaine += dy;
+
+	return chaine;
+}

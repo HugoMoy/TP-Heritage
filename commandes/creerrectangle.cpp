@@ -10,6 +10,11 @@ CreerRectangle::CreerRectangle(int mPoints[], string name, FabriqueCommande * fC
 	nom = name;
 }
 
+CreerRectangle::~CreerRectangle()
+{
+	delete rectangle;
+}
+
 bool CreerRectangle::exec()
 {
 	if(coordonnees[0] > coordonnees[2] || coordonnees[1] > coordonnees[3])
@@ -22,4 +27,16 @@ bool CreerRectangle::exec()
 bool CreerRectangle::unexec()
 {
 	return commandeFactory->retirerForme(rectangle);
+}
+
+string CreerRectangle::saveLine()
+{
+	string chaine = "R ";
+	chaine += nom + " ";
+	chaine += coordonnees[0] + " ";
+	chaine += coordonnees[1] + " ";
+	chaine += coordonnees[2] + " ";
+	chaine += coordonnees[3];
+
+	return chaine;
 }

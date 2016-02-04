@@ -23,7 +23,7 @@ public:
     virtual bool contient(std::pair<int,int> point);
     void deplacer(int dx, int dy);
 	virtual ptr_Forme clone();
-
+	virtual void display();
 	int getNbPoints(){return nbPoints;}
 	pair<int,int> * getListePoints(){return listePoints;}
 

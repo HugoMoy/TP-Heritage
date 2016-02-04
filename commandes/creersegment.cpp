@@ -9,6 +9,11 @@ CreerSegment::CreerSegment(string name, int mX1, int mY1, int mX2, int mY2,  Fab
 	y2 = mY2;
 }
 
+CreerSegment::~CreerSegment()
+{
+	delete segment;
+}
+
 bool CreerSegment::exec()
 {
 	segment = new Segment(nom, x1, y1, x2, y2);
@@ -18,4 +23,15 @@ bool CreerSegment::exec()
 bool CreerSegment::unexec()
 {
 	return commandeFactory->retirerForme(segment);
+}
+
+string CreerSegment::saveLine()
+{
+	string chaine = "S ";
+	chaine += nom +" ";
+	chaine += x1 +" ";
+	chaine += y1 +" ";
+	chaine += x2 +" ";
+	chaine += y2;
+	return chaine;
 }

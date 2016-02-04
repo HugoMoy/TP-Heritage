@@ -8,6 +8,11 @@ Unir::Unir(string name, string formesName[], int nb, FabriqueCommande * fCommand
 	formes = new ptr_Forme[nb];
 }
 
+Unir::~Unir()
+{
+	delete uni;
+}
+
 bool Unir::exec()
 {
 	for(int i = 0; i<nbFormes; i++)
@@ -29,4 +34,17 @@ bool Unir::exec()
 bool Unir::unexec()
 {
 	return commandeFactory->retirerForme(uni);
+}
+
+string Unir::saveLine()
+{
+	string chaine = "OR ";
+	chaine += nom;
+
+	for (int i = 0; i < nbFormes; i++)
+	{
+		chaine += " " + formes[i]->getNom();
+	}
+
+	return chaine;
 }

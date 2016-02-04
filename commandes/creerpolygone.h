@@ -19,10 +19,11 @@ public:
 	
 
     CreerPolygone(int mPoints[], int mnbPoints, string name, FabriqueCommande * fCommande);
-	//CreerPolygone(Polygone polygone, FabriqueCommande * fCommande);
+	~CreerPolygone();
 
 	bool exec();
 	bool unexec();
+	string saveLine();
 };
 
 #endif // CREERPOLYGONE_H

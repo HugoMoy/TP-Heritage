@@ -29,3 +29,8 @@ ptr_Forme Segment::clone()
 	Segment * segmentClone = new Segment(nom, point1.first, point1.second, point2.first, point2.second);
 	return segmentClone;
 }
+
+void Segment::display()
+{
+	cout << "SEGMENT contenant les points (" << point1.first << ", " << point1.second <<") ; (" << point2.first << ", " << point2.second <<")" << endl;
+}

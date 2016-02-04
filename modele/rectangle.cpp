@@ -25,3 +25,11 @@ ptr_Forme Rectangle::clone()
 
 	return rectangleClone;
 }
+
+void Rectangle::display()
+{
+	cout << "RECTANGLE : " << nom << "contenant les points : ";
+	for (int i = 0; i < nbPoints-1; i++)
+		cout << "(" << listePoints[i].first << ", " << listePoints[i].second << ") ; ";
+	cout << "(" << listePoints[nbPoints-1].first << ", " << listePoints[nbPoints-1].second << ")" << endl;
+}

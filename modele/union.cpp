@@ -2,18 +2,15 @@
 
 Union::Union(string name, ptr_Forme formes[], int nb) : Forme(name)
 {
-    formesAUnir = new ptr_Forme[nb];
+    formesAUnir = formes;
     nbFormes = nb;
-
-    for(int i = 0; i<nb; i++)
-    {
-        formesAUnir[i]=formes[i];
-    }
 
 }
 
 Union::~Union()
 {
+	for(int i = 0; i < nbFormes; i++)
+		delete formesAUnir[i];
 }
 
 bool Union::contient(pair<int, int> point)
@@ -43,4 +40,9 @@ ptr_Forme Union::clone()
 
 	Union * unionClone = new Union(nom, formes, nbFormes);
 	return unionClone;
+}
+
+void Union::display()
+{
+	cout << "UNION : " << nom << ", contient " << nbFormes << "forme(s)." << endl;
 }

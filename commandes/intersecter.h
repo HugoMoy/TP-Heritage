@@ -5,7 +5,7 @@
 #include "../modele/intersection.h"
 #include <string>
 
-class Intersecter : Commande
+class Intersecter : public Commande
 {
 private:
 	string * formesNom;
@@ -19,9 +19,11 @@ public:
 	
 
     Intersecter(string name, string formesName[], int nbFormes, FabriqueCommande * fCommande);
+	~Intersecter();
 
 	bool exec();
 	bool unexec();
+	string saveLine();
 
 };
 

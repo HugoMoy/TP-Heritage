@@ -1,21 +1,46 @@
 #include "supprimer.h"
 
-Supprimer::Supprimer(string nomForme, FabriqueCommande * fCommande) : Commande(fCommande)
+Supprimer::Supprimer(string nomFormes[], int nb, FabriqueCommande * fCommande) : Commande(fCommande)
 {
-	nom = nomForme;
-	
+	noms = nomFormes;
+	nbFormes = nb;
+	forme = new ptr_Forme[nb];
+}
+
+Supprimer::~Supprimer()
+{
+	for(int i =0; i<nbFormes; i++)
+		delete forme[i];
 }
 
 bool Supprimer::exec()
 {
-	forme = commandeFactory->find(nom);
+	for(int i = 0; i < nbFormes; i ++)
+	{
+	forme[i] = commandeFactory->find(noms[i])->clone();
 	if(forme == nullptr)
 		return false;
-	
-	return commandeFactory->retirerForme(nom);
+	commandeFactory->retirerForme(noms[i]);
+	}
+	return true;
 }
 
 bool Supprimer::unexec()
 {
-	return commandeFactory->ajouterForme(forme);
+	for (int i =0; i<nbFormes; i++)
+	{
+		commandeFactory->ajouterForme(forme[i]);
+	}
+	return true;
+}
+
+string Supprimer::saveLine()
+{
+	string chaine = "DELETE";
+	for(int i =0; i < nbFormes; i++)
+	{
+		chaine += " " + noms[i];
+	}
+
+	return chaine;
 }

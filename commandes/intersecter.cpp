@@ -8,6 +8,11 @@ Intersecter::Intersecter(string name, string formesName[], int nb, FabriqueComma
 	formes = new ptr_Forme[nb];
 }
 
+Intersecter::~Intersecter()
+{
+	delete intersection;
+}
+
 bool Intersecter::exec()
 {
 	for(int i = 0; i<nbFormes; i++)
@@ -19,7 +24,6 @@ bool Intersecter::exec()
 		}
 
 		formes[i] = uneForme->clone();
-
 	}
 
 	intersection = new Intersection(nom, formes, nbFormes);
@@ -29,4 +33,17 @@ bool Intersecter::exec()
 bool Intersecter::unexec()
 {
 	return commandeFactory->retirerForme(intersection);
+}
+
+string Intersecter::saveLine()
+{
+	string chaine = "OI ";
+	chaine += nom;
+
+	for (int i = 0; i < nbFormes; i++)
+	{
+		chaine += " " + formes[i]->getNom();
+	}
+
+	return chaine;
 }

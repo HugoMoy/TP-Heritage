@@ -8,14 +8,17 @@
 class Supprimer : public Commande
 {
 private:
-	string nom;
-	ptr_Forme forme;
+	string * noms;
+	int nbFormes;
+	ptr_Forme * forme;
 
 public:
-    Supprimer(string nomForme, FabriqueCommande * fCommande);
+    Supprimer(string nomForme[], int nb, FabriqueCommande * fCommande);
+	~Supprimer();
 
 	bool exec();
 	bool unexec();
+	string saveLine();
 };
 
 #endif // SUPPRIMER_H

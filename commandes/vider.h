@@ -12,9 +12,11 @@ private :
 
 public:
     Vider(FabriqueCommande * fCommande);
+	~Vider();
 
 	bool exec();
 	bool unexec();
+	string saveLine();
 };
 
 #endif // VIDER_H
