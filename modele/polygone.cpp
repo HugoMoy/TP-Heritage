@@ -15,17 +15,18 @@ Polygone::~Polygone()
 
 bool Polygone::ajouterPoint(int x, int y)
 {
-    if(sommet <= 3)
+    if(sommet < 3)
     {
    listePoints[sommet] = pair<int,int>(x,y);
    sommet++;
    return true;
     }
 
-	else if(sommet < nbPoints)
+	else if(sommet < nbPoints-1)
 	{
+        //cout << "plus de 3 points" << endl;
 		pair<int, int> nouveauSommet(x,y);
-		if(anglePositif(listePoints[sommet-2], listePoints[sommet-1], listePoints[sommet]) == anglePositif(listePoints[sommet], listePoints[sommet], nouveauSommet))
+		if(anglePositif(listePoints[sommet-3], listePoints[sommet-2], listePoints[sommet-1]) == anglePositif(listePoints[sommet-2], listePoints[sommet-1], nouveauSommet))
 		{
 			listePoints[sommet] = nouveauSommet;
 			sommet++;
@@ -33,7 +34,20 @@ bool Polygone::ajouterPoint(int x, int y)
 		}
 		return false;
 	}
-
+    else if(sommet == nbPoints-1)
+    {
+        pair<int, int> nouveauSommet(x,y);
+        if(anglePositif(listePoints[sommet-2], listePoints[sommet-1], nouveauSommet) == anglePositif(listePoints[sommet-1], nouveauSommet, listePoints[0]))
+		{
+            if(anglePositif(listePoints[sommet-1], nouveauSommet, listePoints[0]) == anglePositif(nouveauSommet, listePoints[0], listePoints[1]))
+            {
+			listePoints[sommet] = nouveauSommet;
+			sommet++;
+			return true;
+			}
+		}
+		return false;
+    }
 	return false;
 }
 
