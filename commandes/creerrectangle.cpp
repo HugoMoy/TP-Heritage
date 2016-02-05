@@ -17,7 +17,7 @@ CreerRectangle::~CreerRectangle()
 
 bool CreerRectangle::exec()
 {
-	if(coordonnees[0] > coordonnees[2] || coordonnees[1] > coordonnees[3])
+	if(coordonnees[0] > coordonnees[2] || coordonnees[1] < coordonnees[3])
 		return false;
 
 	rectangle = new Rectangle(nom, coordonnees[0],coordonnees[1], coordonnees[2], coordonnees[3]);
@@ -33,10 +33,10 @@ string CreerRectangle::saveLine()
 {
 	string chaine = "R ";
 	chaine += nom + " ";
-	chaine += coordonnees[0] + " ";
-	chaine += coordonnees[1] + " ";
-	chaine += coordonnees[2] + " ";
-	chaine += coordonnees[3];
+	chaine += to_string(coordonnees[0]) + " ";
+	chaine += to_string(coordonnees[1]) + " ";
+	chaine += to_string(coordonnees[2]) + " ";
+	chaine += to_string(coordonnees[3]);
 
 	return chaine;
 }

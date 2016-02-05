@@ -29,9 +29,9 @@ string CreerSegment::saveLine()
 {
 	string chaine = "S ";
 	chaine += nom +" ";
-	chaine += x1 +" ";
-	chaine += y1 +" ";
-	chaine += x2 +" ";
-	chaine += y2;
+	chaine += to_string(x1) +" ";
+	chaine += to_string(y1) +" ";
+	chaine += to_string(x2) +" ";
+	chaine += to_string(y2);
 	return chaine;
 }
