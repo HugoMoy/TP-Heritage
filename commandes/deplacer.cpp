@@ -28,8 +28,8 @@ string Deplacer::saveLine()
 {
 	string chaine = "MOVE ";
 	chaine += nomForme + " ";
-	chaine += dx + " ";
-	chaine += dy;
+	chaine += to_string(dx + " ");
+	chaine += to_string(dy);
 
 	return chaine;
 }
