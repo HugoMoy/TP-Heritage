@@ -33,23 +33,30 @@ FabriqueCommande::~FabriqueCommande()
 
 bool FabriqueCommande::executerCommande(string commande)
 {
-	size_t pos = commande.find(" ");
-	string arguments = commande.substr(pos);
-	commande = commande.substr(0,pos);
+    size_t pos;
+    string arguments;
+    if(!(commande.compare("CLEAR")==0 || commande.compare("UNDO")==0 || commande.compare("REDO")==0 || commande.compare("LIST")==0 || commande.compare("EXIT")==0))
+    {
+        pos = commande.find(" ");
+        arguments = commande.substr(pos);
+        commande = commande.substr(0,pos);
+        arguments.erase(0,1);
+    }
 
 	if(commande.compare("R") == 0) //-----------------------------------------------
 	{
+
 		pos = arguments.find(" ");
-		string nom = arguments.substr(0, pos-1);
-		arguments.substr(pos+1);
+		string nom = arguments.substr(0, pos);
+		arguments = arguments.substr(pos+1);
 		int args[4];
-		for(int i = 0; i<3; i++)
+		for(int i = 0; i<4; i++)
 		{
 			pos = arguments.find(" ");
-			args[i] = atoi(arguments.substr(0, pos-1).c_str());
-			arguments.substr(pos+1);
+			args[i] = atoi(arguments.substr(0, pos).c_str());
+			arguments = arguments.substr(pos+1);
+
 		}
-		args[3] = atoi(arguments.c_str());
 
 		CreerRectangle * commandeRectangle = new CreerRectangle(args, nom, this);
 
@@ -60,24 +67,24 @@ bool FabriqueCommande::executerCommande(string commande)
 		}
 		else
 			cout << "ERR" << endl;
-	}
+    }
 
 	else if (commande.compare("PC") == 0) //----------------------------------------
 	{
+
 		pos = arguments.find(" ");
-		string nom = arguments.substr(0, pos-1);
-		arguments.substr(pos+1);
+		string nom = arguments.substr(0, pos);
+		arguments = arguments.substr(pos+1);
 		int nbArgs = count(arguments.begin(), arguments.end(), ' ')+1;
 		int *args = new int[nbArgs];
 		for(int i = 0; i<nbArgs; i++)
 		{
 			pos = arguments.find(" ");
-			args[i] = atoi(arguments.substr(0, pos-1).c_str());
-			arguments.substr(pos+1);
+			args[i] = atoi(arguments.substr(0, pos).c_str());
+			arguments = arguments.substr(pos+1);
 		}
-		args[nbArgs] = atoi(arguments.c_str());
 
-		
+
 		CreerPolygone * commandePolygone = new CreerPolygone(args, nbArgs, nom, this);
 
 		if(commandePolygone->exec())
@@ -93,19 +100,18 @@ bool FabriqueCommande::executerCommande(string commande)
 	else if (commande.compare("OR") == 0) //----------------------------------------
 	{
 		pos = arguments.find(" ");
-		string nom = arguments.substr(0, pos-1);
-		arguments.substr(pos+1);
+		string nom = arguments.substr(0, pos);
+		arguments = arguments.substr(pos+1);
 		int nbArgs = count(arguments.begin(), arguments.end(), ' ')+1;
 		string *args = new string[nbArgs];
 		for(int i = 0; i<nbArgs; i++)
 		{
 			pos = arguments.find(" ");
-			args[i] = arguments.substr(0, pos-1);
-			arguments.substr(pos+1);
+			args[i] = arguments.substr(0, pos);
+			arguments = arguments.substr(pos+1);
 		}
-		args[nbArgs] = arguments;
 
-		
+
 		Unir * commandeUnion = new Unir(nom, args, nbArgs, this);
 
 		if(commandeUnion->exec())
@@ -121,19 +127,18 @@ bool FabriqueCommande::executerCommande(string commande)
 	else if (commande.compare("OI") == 0) //----------------------------------------
 	{
 		pos = arguments.find(" ");
-		string nom = arguments.substr(0, pos-1);
-		arguments.substr(pos+1);
+		string nom = arguments.substr(0, pos);
+		arguments = arguments.substr(pos+1);
 		int nbArgs = count(arguments.begin(), arguments.end(), ' ')+1;
 		string *args = new string[nbArgs];
 		for(int i = 0; i<nbArgs; i++)
 		{
 			pos = arguments.find(" ");
-			args[i] = arguments.substr(0, pos-1);
-			arguments.substr(pos+1);
+			args[i] = arguments.substr(0, pos);
+			arguments = arguments.substr(pos+1);
 		}
-		args[nbArgs] = arguments;
 
-		
+
 		Intersecter * commandeIntersection = new Intersecter(nom, args, nbArgs, this);
 
 		if(commandeIntersection->exec())
@@ -149,16 +154,16 @@ bool FabriqueCommande::executerCommande(string commande)
 	else if (commande.compare("S") == 0) //----------------------------------------
 	{
 		pos = arguments.find(" ");
-		string nom = arguments.substr(0, pos-1);
-		arguments.substr(pos+1);
+		string nom = arguments.substr(0, pos);
+		arguments = arguments.substr(pos+1);
 		int args[4];
-		for(int i = 0; i<3; i++)
+		for(int i = 0; i<4; i++)
 		{
 			pos = arguments.find(" ");
-			args[i] = atoi(arguments.substr(0, pos-1).c_str());
-			arguments.substr(pos+1);
+			args[i] = atoi(arguments.substr(0, pos).c_str());
+			arguments = arguments.substr(pos+1);
+			cout << args[i] << endl;
 		}
-		args[3] = atoi(arguments.c_str());
 
 		CreerSegment * commandeSegment = new CreerSegment(nom, args[0], args[1], args[2], args[3], this);
 
@@ -196,6 +201,8 @@ bool FabriqueCommande::executerCommande(string commande)
 				cout << "ERR" << endl;
 
 		}
+		else
+            cout << "ERR" << endl;
 	}
 
 	else if (commande.compare("REDO") == 0) //----------------------------------------
@@ -223,6 +230,8 @@ bool FabriqueCommande::executerCommande(string commande)
 				cout << "ERR" << endl;
 
 		}
+		else
+            cout << "ERR" << endl;
 	}
 
 	else if (commande.compare("SAVE") == 0) //----------------------------------------
@@ -271,16 +280,16 @@ bool FabriqueCommande::executerCommande(string commande)
 		else
 			cout << "ERR" << endl;
 	}
-	
+
 	else if (commande.compare("HIT") == 0) //----------------------------------------
 	{
 		pos = arguments.find(" ");
-		string nom = arguments.substr(0, pos-1);
-		arguments.substr(pos+1);
-		
+		string nom = arguments.substr(0, pos);
+		arguments = arguments.substr(pos+1);
+
 		pos = arguments.find(" ");
-		int x = atoi(arguments.substr(0, pos-1).c_str());
-		arguments.substr(pos+1);
+		int x = atoi(arguments.substr(0, pos).c_str());
+		arguments = arguments.substr(pos+1);
 		int y = atoi(arguments.c_str());
 		pair<int, int> point = pair<int, int>(x,y);
 		if(find(nom) != nullptr)
@@ -302,10 +311,9 @@ bool FabriqueCommande::executerCommande(string commande)
 		for(int i = 0; i<nbArgs; i++)
 		{
 			pos = arguments.find(" ");
-			args[i] = arguments.substr(0, pos-1);
-			arguments.substr(pos+1);
+			args[i] = arguments.substr(0, pos);
+			arguments = arguments.substr(pos+1);
 		}
-		args[nbArgs] = arguments;
 
 		Supprimer * commandeSupprimer = new Supprimer(args, nbArgs, this);
 
@@ -322,12 +330,12 @@ bool FabriqueCommande::executerCommande(string commande)
 	else if (commande.compare("MOVE") == 0) //----------------------------------------
 	{
 		pos = arguments.find(" ");
-		string nom = arguments.substr(0, pos-1);
-		arguments.substr(pos+1);
-		
+		string nom = arguments.substr(0, pos);
+		arguments = arguments.substr(pos+1);
+
 		pos = arguments.find(" ");
-		int x = atoi(arguments.substr(0, pos-1).c_str());
-		arguments.substr(pos+1);
+		int x = atoi(arguments.substr(0, pos).c_str());
+		arguments = arguments.substr(pos+1);
 		int y = atoi(arguments.c_str());
 
 		Deplacer * commandeDeplacer = new Deplacer(x, y, nom, this);
@@ -344,17 +352,17 @@ bool FabriqueCommande::executerCommande(string commande)
 	else if (commande.compare("LIST") == 0) //----------------------------------------
 	{
 		for(map<string, ptr_Forme>::iterator it = listeForme.begin(); it != listeForme.end(); it++)
-			it->second->display();
+            it->second->display();
+
 	}
-	
+
 	else if (commande.compare("EXIT") == 0) //----------------------------------------
 	{
+
 		return false;
 	}
-
 	return true;
-}
-
+    }
 void FabriqueCommande::ajouterCommande(Commande * commande)
 {			
 	
